@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5j1mu6n6iwwk"]
+[gd_scene load_steps=7 format=3 uid="uid://c5j1mu6n6iwwk"]
 
 [ext_resource type="Texture2D" uid="uid://b5xxjq3rpbmhf" path="res://Assets/Plain.png" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://dwm07rehh4osp" path="res://Assets/Lake.png" id="2_2c62f"]
 [ext_resource type="Texture2D" uid="uid://b1pw2mc7o0axx" path="res://Assets/Coupe.png" id="3_gyfs4"]
 [ext_resource type="Texture2D" uid="uid://cm84hxu3xqn4k" path="res://Assets/HayField.jpeg" id="4_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://bfg3e4k0abqke" path="res://ChickenPawn/chicken.tscn" id="5_8mm7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
 size = Vector2(1173.33, 2160)
@@ -14,11 +15,11 @@ size = Vector2(1173.33, 2160)
 position = Vector2(576, 324)
 scale = Vector2(0.3, 0.3)
 
-[node name="Plane_CollisionShape2D" type="CollisionShape2D" parent="Map"]
+[node name="Plain_CollisionShape2D" type="CollisionShape2D" parent="Map"]
 position = Vector2(0, -0.000244141)
 shape = SubResource("RectangleShape2D_2c62f")
 
-[node name="Plane" type="Sprite2D" parent="Map/Plane_CollisionShape2D"]
+[node name="Plane" type="Sprite2D" parent="Map/Plain_CollisionShape2D"]
 position = Vector2(0, 0.000244141)
 texture = ExtResource("1_0f027")
 
@@ -47,3 +48,6 @@ polygon = PackedVector2Array(1413.33, 0, 1413.33, 453.333, -133.333, 453.333, -1
 position = Vector2(640, 293.333)
 scale = Vector2(2.48, 1)
 texture = ExtResource("4_d5x1h")
+
+[node name="Chicken" parent="Map" instance=ExtResource("5_8mm7a")]
+position = Vector2(-106.667, -66.6668)
