@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c5j1mu6n6iwwk"]
+
+[ext_resource type="Texture2D" uid="uid://b5xxjq3rpbmhf" path="res://Assets/Plain.png" id="1_0f027"]
+[ext_resource type="Texture2D" uid="uid://dwm07rehh4osp" path="res://Assets/Lake.png" id="2_2c62f"]
+[ext_resource type="Texture2D" uid="uid://b1pw2mc7o0axx" path="res://Assets/Coupe.png" id="3_gyfs4"]
+[ext_resource type="Texture2D" uid="uid://cm84hxu3xqn4k" path="res://Assets/HayField.jpeg" id="4_d5x1h"]
+[ext_resource type="PackedScene" uid="uid://bfg3e4k0abqke" path="res://ChickenPawn/chicken.tscn" id="5_8mm7a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mm7a"]
+radius = 9.84616
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
+size = Vector2(1600, 800)
+
+[node name="Main Scene" type="Node2D"]
+
+[node name="Map" type="Area2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(0.3, 0.3)
+
+[node name="Plane" type="Sprite2D" parent="Map"]
+texture = ExtResource("1_0f027")
+
+[node name="Lake" type="Sprite2D" parent="Map"]
+texture = ExtResource("2_2c62f")
+
+[node name="Coupe" type="Sprite2D" parent="Map"]
+position = Vector2(986.667, -800)
+scale = Vector2(1.0625, 1.0625)
+texture = ExtResource("3_gyfs4")
+
+[node name="HayField" type="Sprite2D" parent="Map"]
+position = Vector2(1120, 893.333)
+scale = Vector2(2.48, 1)
+texture = ExtResource("4_d5x1h")
+
+[node name="CoupeCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(986.667, -706.667)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="WaterCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(-906.667, -173.333)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="HayCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(1306.67, 786.667)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="RoamingArea" type="CollisionShape2D" parent="Map"]
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+
+[node name="Chicken" parent="Map" node_paths=PackedStringArray("coupe", "water", "hay", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(-160, -146.667)
+hunger = 100.0
+thirst = 70.0
+coupe = NodePath("../CoupeCollider")
+water = NodePath("../WaterCollider")
+hay = NodePath("../HayCollider")
+roamingArea = NodePath("../RoamingArea")
