@@ -8,6 +8,9 @@ radius = 580.483
 
 [node name="Chicken" type="CharacterBody2D"]
 script = ExtResource("1_0mbhd")
+hunger = 70.0
+thirst = 60.0
+fatigue = 80.0
 
 [node name="ChickenCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_aembx")

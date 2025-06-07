@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5j1mu6n6iwwk"]
+[gd_scene load_steps=8 format=3 uid="uid://c5j1mu6n6iwwk"]
 
 [ext_resource type="Texture2D" uid="uid://b5xxjq3rpbmhf" path="res://Assets/Plain.png" id="1_0f027"]
 [ext_resource type="Texture2D" uid="uid://dwm07rehh4osp" path="res://Assets/Lake.png" id="2_2c62f"]
@@ -6,8 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://cm84hxu3xqn4k" path="res://Assets/HayField.jpeg" id="4_d5x1h"]
 [ext_resource type="PackedScene" uid="uid://bfg3e4k0abqke" path="res://ChickenPawn/chicken.tscn" id="5_8mm7a"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2c62f"]
-size = Vector2(1173.33, 2160)
+[sub_resource type="CircleShape2D" id="CircleShape2D_8mm7a"]
+radius = 9.84616
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
+size = Vector2(1600, 800)
 
 [node name="Main Scene" type="Node2D"]
 
@@ -15,39 +18,46 @@ size = Vector2(1173.33, 2160)
 position = Vector2(576, 324)
 scale = Vector2(0.3, 0.3)
 
-[node name="Plain_CollisionShape2D" type="CollisionShape2D" parent="Map"]
-position = Vector2(0, -0.000244141)
-shape = SubResource("RectangleShape2D_2c62f")
-
-[node name="Plane" type="Sprite2D" parent="Map/Plain_CollisionShape2D"]
-position = Vector2(0, 0.000244141)
+[node name="Plane" type="Sprite2D" parent="Map"]
 texture = ExtResource("1_0f027")
 
-[node name="Lake_CollisionShape2D2" type="CollisionShape2D" parent="Map"]
-position = Vector2(-1333.33, -0.00012207)
-shape = SubResource("RectangleShape2D_2c62f")
-
-[node name="Lake" type="Sprite2D" parent="Map/Lake_CollisionShape2D2"]
-position = Vector2(1333.33, 0.000116348)
+[node name="Lake" type="Sprite2D" parent="Map"]
 texture = ExtResource("2_2c62f")
 
-[node name="Coupe_CollisionPolygon2D" type="CollisionPolygon2D" parent="Map"]
-position = Vector2(986.667, -733.333)
-polygon = PackedVector2Array(160, -93.3335, 186.667, 93.3331, -186.667, 93.3331, -160, -93.3335)
-
-[node name="Sprite2D" type="Sprite2D" parent="Map/Coupe_CollisionPolygon2D"]
-position = Vector2(3.05176e-05, -66.6667)
+[node name="Coupe" type="Sprite2D" parent="Map"]
+position = Vector2(986.667, -800)
 scale = Vector2(1.0625, 1.0625)
 texture = ExtResource("3_gyfs4")
 
-[node name="HayField_CollisionPolygon2D2" type="CollisionPolygon2D" parent="Map"]
-position = Vector2(480, 600)
-polygon = PackedVector2Array(1413.33, 0, 1413.33, 453.333, -133.333, 453.333, -133.333, 0)
-
-[node name="HayField" type="Sprite2D" parent="Map/HayField_CollisionPolygon2D2"]
-position = Vector2(640, 293.333)
+[node name="HayField" type="Sprite2D" parent="Map"]
+position = Vector2(1120, 893.333)
 scale = Vector2(2.48, 1)
 texture = ExtResource("4_d5x1h")
 
-[node name="Chicken" parent="Map" instance=ExtResource("5_8mm7a")]
-position = Vector2(-106.667, -66.6668)
+[node name="CoupeCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(986.667, -706.667)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="WaterCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(-906.667, -173.333)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="HayCollider" type="CollisionShape2D" parent="Map"]
+position = Vector2(1306.67, 786.667)
+scale = Vector2(8, 8)
+shape = SubResource("CircleShape2D_8mm7a")
+
+[node name="RoamingArea" type="CollisionShape2D" parent="Map"]
+position = Vector2(480, 0)
+shape = SubResource("RectangleShape2D_8mm7a")
+
+[node name="Chicken" parent="Map" node_paths=PackedStringArray("coupe", "water", "hay", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(-160, -146.667)
+hunger = 100.0
+thirst = 70.0
+coupe = NodePath("../CoupeCollider")
+water = NodePath("../WaterCollider")
+hay = NodePath("../HayCollider")
+roamingArea = NodePath("../RoamingArea")
