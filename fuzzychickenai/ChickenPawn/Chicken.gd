@@ -5,6 +5,7 @@ var isAlive = true
 var idle_timer : float = 0.0
 var idle_wait_time : float = 0.0
 var hasPosition: bool = false
+
 #Chicken Stats
 @export_category("Tweaking Stats")
 @export var speed = 50
@@ -26,18 +27,13 @@ var hasPosition: bool = false
 @export var hay: CollisionShape2D
 @export var roamingArea: CollisionShape2D
 
+@export var messageLabel: RichTextLabel
+
+#Chicken States
 var isRoaming: bool = false
 var isIdling: bool = false
 var isReturning: bool = false
-var is_traveling: bool = false
-var is_sleeping: bool = false
-var is_eating: bool = false
-var is_drinking: bool = false
-
-#Chickens States
-var is_hungry: bool = false
-var is_tired: bool = false
-var is_thirsty: bool = false
+var isReplenishing: bool = false # <-- NEW: State for when eating, drinking, sleeping
 
 #Movement variables
 var roaming_radius: float = 500
@@ -49,10 +45,15 @@ var random_distance: float
 
 func _ready() -> void:
 	isRoaming = true
-	ResetStats()
+	RandomizeStats()
 	
 
 func _physics_process(delta: float) -> void:
+	if isReplenishing:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+
 	if isRoaming:
 		Roaming()
 		move_and_slide()
@@ -65,15 +66,17 @@ func _physics_process(delta: float) -> void:
 		MoveTowards(water)
 	if isDrowsy:
 		MoveTowards(coupe)
-	
-	if isReturning:
-		MoveTowards(roamingArea)
-		isReturning = false
 
+#For Debug
 func ResetStats() -> void:
 	hunger = 100.0
 	thirst = 70.0
 	fatigue = 80.0
+	
+func RandomizeStats() -> void:
+	hunger = randf_range(20.0,100.0)
+	thirst = randf_range(20.0,100.0)
+	fatigue = randf_range(20.0,100.0)
 
 func PrintStats() -> void:
 	print("hunger: ", hunger)
@@ -85,12 +88,12 @@ func Roaming() -> void:
 	if not hasPosition:
 		random_angle = randf_range(0,2*PI)
 		random_distance = randf_range(0,roaming_radius)
+		messageLabel.text = "I'm roaming so hard right now"
 		print("roaming...")
 		
 		StatLoss()
 		
 		target_position = position + Vector2(cos(random_angle), sin(random_angle)) * random_distance
-#		TODO: Potentially clamp to screen so the chicken doesn't wonder OfflineMultiplayerPeer
 		hasPosition = true
 	
 	var direction = (target_position - position).normalized()
@@ -105,7 +108,8 @@ func Roaming() -> void:
 func IdlingForSeconds(delta: float):
 	if idle_wait_time == 0.0:
 		idle_wait_time = randf_range(2.0, 5.0)
-		print("Idling... %s seconds" % [idle_wait_time])
+		messageLabel.text = "Brain Noise (Idling)"
+		print("Idling for %s seconds..." % [idle_wait_time])
 	idle_timer += delta
 	
 	if idle_timer >= idle_wait_time:
@@ -114,7 +118,7 @@ func IdlingForSeconds(delta: float):
 		isIdling = false
 		print("Finished Idling")
 		Contemplate()
-		if not isHungry or isThirsty or isDrowsy:
+		if not (isHungry or isThirsty or isDrowsy):
 			isRoaming = true
 		else:
 			isRoaming = false
@@ -122,16 +126,16 @@ func IdlingForSeconds(delta: float):
 func Contemplate() -> void:
 	if hunger < 30:
 		isHungry = true
-		print("I could eat some seed")
-		pass
+		messageLabel.text = "I could eat some seed"
+#		print("I could eat some seed")
 	if thirst < 50:
 		isThirsty = true
-		print("Water! Give me water!")
-		pass
+		messageLabel.text = "Water! Give me water!"
+#	print("Water! Give me water!")
 	if fatigue < 10:
 		isDrowsy = true
-		print("Eeeepy...")
-		pass
+		messageLabel.text = "Eeeepy..."
+#		print("Eeeepy...")
 	PrintStats()
 
 func StatLoss() -> void:
@@ -141,32 +145,52 @@ func StatLoss() -> void:
 
 func MoveTowards(collider: CollisionShape2D):
 	if not hasPosition:
-		target_position = collider.position
+		target_position = collider.global_position
 		print("Moving Towards: ", collider.name)
-#		TODO: Potentially clamp to screen so the chicken doesn't wonder OfflineMultiplayerPeer
 		hasPosition = true
 	
 	var direction = (target_position - global_position).normalized()
 	velocity = direction * speed
+	move_and_slide()
 	
-	if position.distance_to(target_position) < 5.0:
+	if global_position.distance_to(target_position) < 5.0:
 		hasPosition = false
 		velocity = Vector2.ZERO
-		ReplenishStat(collider)
+
+		_start_replenishing(collider)
+
+
+
+func _start_replenishing(collider: CollisionShape2D) -> void:
+	isReplenishing = true
+	
+	var action_verb = "interacting"
+	if collider.name == "HayCollider": action_verb = "eating"
+	elif collider.name == "WaterCollider": action_verb = "drinking"
+	elif collider.name == "CoupeCollider": action_verb = "sleeping"
+	messageLabel.text = "I'm %s now" % action_verb
+#	print("Chicken is now %s for 3 seconds..." % action_verb)
+
+	await get_tree().create_timer(3.0).timeout
+	
+	print("... finished %s." % action_verb)
+	
+	ReplenishStat(collider)
+	
+	isReplenishing = false
+	isReturning = true
+
 
 func ReplenishStat(collider: CollisionShape2D):
 	if collider.name == "HayCollider":
 		hunger = 100.0
 		isHungry = false
-		isReturning = true
 	elif collider.name == "WaterCollider":
 		thirst = 100.0
 		isThirsty = false
-		isReturning = true
 	elif collider.name == "CoupeCollider":
 		fatigue = 100.0
 		isDrowsy = false
-		isReturning = true
-	else:
-		pass
-		
+	
+	# After replenishing, the chicken should go back to its default behavior
+	isRoaming = true

@@ -1,21 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfg3e4k0abqke"]
+[gd_scene load_steps=3 format=3 uid="uid://bfg3e4k0abqke"]
 
 [ext_resource type="Script" uid="uid://dkfu0pf4ogrui" path="res://ChickenPawn/Chicken.gd" id="1_0mbhd"]
 [ext_resource type="Texture2D" uid="uid://jhoh5av7x4cm" path="res://ChickenPawn/chicken.png" id="1_aembx"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_aembx"]
-radius = 580.483
-
-[node name="Chicken" type="CharacterBody2D"]
+[node name="Chicken" type="CharacterBody2D" node_paths=PackedStringArray("messageLabel")]
 script = ExtResource("1_0mbhd")
 hunger = 70.0
 thirst = 60.0
 fatigue = 80.0
-
-[node name="ChickenCollider" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_aembx")
+messageLabel = NodePath("Message")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-1.52588e-05, 1.52588e-05)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("1_aembx")
+
+[node name="Message" type="RichTextLabel" parent="."]
+offset_left = -186.0
+offset_top = -207.0
+offset_right = 184.0
+offset_bottom = -123.0
+theme_override_font_sizes/normal_font_size = 24
+text = "Kohut"
+horizontal_alignment = 1
+vertical_alignment = 1
