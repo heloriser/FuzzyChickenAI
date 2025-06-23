@@ -10,7 +10,7 @@
 radius = 9.84616
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mm7a"]
-size = Vector2(1916.67, 870)
+size = Vector2(2666.67, 1253.33)
 
 [node name="Main Scene" type="Node2D"]
 
@@ -90,7 +90,7 @@ scale = Vector2(8, 8)
 shape = SubResource("CircleShape2D_8mm7a")
 
 [node name="RoamingArea" type="CollisionShape2D" parent="Map"]
-position = Vector2(718.333, -68.3334)
+position = Vector2(570, 33.3333)
 shape = SubResource("RectangleShape2D_8mm7a")
 
 [node name="Chicken" parent="." node_paths=PackedStringArray("coupe", "water", "hay", "roamingArea") instance=ExtResource("5_8mm7a")]
