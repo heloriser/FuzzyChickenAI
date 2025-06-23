@@ -93,12 +93,102 @@ shape = SubResource("CircleShape2D_8mm7a")
 position = Vector2(570, 33.3333)
 shape = SubResource("RectangleShape2D_8mm7a")
 
-[node name="Chicken" parent="." node_paths=PackedStringArray("coupe", "water", "hay", "roamingArea") instance=ExtResource("5_8mm7a")]
-position = Vector2(667, 271)
+[node name="Chicken" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(975, 390)
 scale = Vector2(0.3, 0.3)
 hunger = 100.0
 thirst = 70.0
-coupe = NodePath("../Map/CoupeCollider")
-water = NodePath("../Map/WaterCollider")
-hay = NodePath("../Map/HayCollider")
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken2" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(558, 187)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken3" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(840, 263)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken4" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(636, 384)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken5" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(480, 316)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken6" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(975, 390)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken7" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(558, 187)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken8" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(840, 263)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken9" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(636, 384)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
+roamingArea = NodePath("../Map/RoamingArea")
+
+[node name="Chicken10" parent="." node_paths=PackedStringArray("coops", "water_sources", "hay_piles", "roamingArea") instance=ExtResource("5_8mm7a")]
+position = Vector2(480, 316)
+scale = Vector2(0.3, 0.3)
+hunger = 100.0
+thirst = 70.0
+coops = [NodePath("../Map/CoupeCollider"), NodePath("../Map/CoupeCollider3"), NodePath("../Map/CoupeCollider2")]
+water_sources = [NodePath("../Map/WaterCollider"), NodePath("../Map/WaterCollider2"), NodePath("../Map/WaterCollider3")]
+hay_piles = [NodePath("../Map/HayCollider"), NodePath("../Map/HayCollider2"), NodePath("../Map/HayCollider3")]
 roamingArea = NodePath("../Map/RoamingArea")
